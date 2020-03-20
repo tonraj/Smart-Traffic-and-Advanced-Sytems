@@ -31,11 +31,3 @@ while True:
     engineNumber = b[0]
     plateNumber = b[1]
     receiverId = engineNumber + plateNumber
-
-
-
-    
-
-
-
-
