@@ -1,5 +1,4 @@
 ﻿  Main.cpp
-  TrafficIOT.cpp
-  Generating Code...
+E:\Repo\Smart-Traffic-and-Advanced-Sytems\clr\Project\Main.h(140): warning C4700: uninitialized local variable 'i' used
   Main.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Project.vcxproj -> E:\Repo\Smart-Traffic-and-Advanced-Sytems\clr\Project\Debug\Project.exe
