@@ -17,3 +17,11 @@ CREATE TABLE [dbo].[Towers]
     transmitterAddr NVARCHAR(100) NOT NULL,
     vehicleCount INT DEFAULT(0),
 )
+
+CREATE TABLE [dbo].[TrafficAuthority]
+(
+    id INT IDENTITY PRIMARY KEY,
+    transmitterId INT REFERENCES [dbo].[Towers] (transmitterId) ,
+    phone_no NVARCHAR(10) NOT NULL,
+    outgoing DATETIME NULL
+)

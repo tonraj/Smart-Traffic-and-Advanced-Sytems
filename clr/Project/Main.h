@@ -83,6 +83,7 @@ namespace Project {
 	private: System::Windows::Forms::Button^ button7;
 	private: System::Windows::Forms::ComboBox^ comboBox2;
 
+	
 
 
 
@@ -99,15 +100,6 @@ namespace Project {
 		/// </summary>
 		void database() {
 
-
-				array<int^, 2>^ gc1 = gcnew array<int^, 2>{
-					{11, 39},
-					{24,136 },
-					{6, 136},
-					{22, 78},
-					{ 48,272 },
-					{ 12, 272 }
-				};
 
 				SqlConnectionStringBuilder ^builder = gcnew SqlClient::SqlConnectionStringBuilder ();
 				builder->DataSource = "tonz.database.windows.net";
@@ -127,59 +119,116 @@ namespace Project {
 				
 				SqlDataReader ^reader = command->ExecuteReader();
 
-				int i;
+				int i = 1;
+				int Top = 20;
+				int Left = 50;
 
-				array<GroupBox^>^ groupBox2 = gcnew array<GroupBox^>(2);
-
+				
 				while (reader->Read())
 				{
 
 
 					Console::WriteLine(reader->GetInt32(0));
 
-					groupBox2[i] = (gcnew System::Windows::Forms::GroupBox());
+					String ^a;
+					GroupBox^ groupBox1 = gcnew System::Windows::Forms::GroupBox();
+					Label^ label5 = gcnew System::Windows::Forms::Label();
+					Label^ label4 = gcnew System::Windows::Forms::Label();
+
+					Button ^button3 = (gcnew System::Windows::Forms::Button());
+					Button^ button4 = (gcnew System::Windows::Forms::Button());
+
+
+					if (reader->GetInt32(2) >= 0 && reader->GetInt32(2) <= 100) {
+
+						a = "Light Traffic";
+						label5->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)),
+							static_cast<System::Int32>(static_cast<System::Byte>(0)));
 					
-					this->label3 = (gcnew System::Windows::Forms::Label());
-					this->label1 = (gcnew System::Windows::Forms::Label());
+					}else if (reader->GetInt32(2) > 100 && reader->GetInt32(2) <= 200) {
 
-					Console::WriteLine(groupBox2[i]);
+						a = "Medium Traffic";
+						label5->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+							static_cast<System::Int32>(static_cast<System::Byte>(0)));
 
+					}else if (reader->GetInt32(2) > 200 && reader->GetInt32(2) <= 300) {
 
-					groupBox2[i]->Controls->Add(this->button2);
-					groupBox2[i]->Controls->Add(this->label3);
-					groupBox2[i]->Controls->Add(this->label2);
-					groupBox2[i]->Controls->Add(this->label1);
-					groupBox2[i]->Location = System::Drawing::Point(11, 39);
-					groupBox2[i]->Name = L"groupBox2";
-					groupBox2[i]->Size = System::Drawing::Size(317, 182);
-					groupBox2[i]->TabIndex = 0;
-					groupBox2[i]->TabStop = false;
-					groupBox2[i]->Text = L"TOWER " + reader->GetInt32(0) + " - " + reader->GetString(1);
-					groupBox2[i]->Enter += gcnew System::EventHandler(this, &Main::groupBox2_Enter);
+						a = "Medium Traffic";
+						label5->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+							static_cast<System::Int32>(static_cast<System::Byte>(0)));
+
+					}
+					else {
+						a = "Heavy Traffic";
+						label5->ForeColor = System::Drawing::Color::Red;
+					}
+
 					
 
-					this->label3->AutoSize = true;
-					this->label3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+					groupBox1->Controls->Add(label5);
+
+					groupBox1->Controls->Add(label4);
+					groupBox1->Controls->Add(button3);
+					groupBox1->Controls->Add(button4);
+					groupBox1->Location = System::Drawing::Point(Top, Left);
+					groupBox1->Name = L"groupBox1";
+					groupBox1->Size = System::Drawing::Size(287, 129);
+					groupBox1->TabIndex = 0;
+					groupBox1->TabStop = false;
+					groupBox1->Text = L" TOWER " + reader->GetInt32(0) + " - " + reader->GetString(1);
+					//groupBox1->SuspendLayout();
+					//groupBox1->ResumeLayout(false);
+					//groupBox1->PerformLayout();
+
+					// 
+					// label5
+					// 
+					label5->AutoSize = true;
+					label5->Font = (gcnew System::Drawing::Font(L"Microsoft Tai Le", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 						static_cast<System::Byte>(0)));
-					this->label3->Location = System::Drawing::Point(24, 136);
-					this->label3->Name = L"label3";
-					this->label3->Size = System::Drawing::Size(123, 24);
-					this->label3->TabIndex = 2;
-					this->label3->Text = L"Traffic is OK";
-					this->label3->Click += gcnew System::EventHandler(this, &Main::label3_Click);
-					
-
-					this->label1->AutoSize = true;
-					this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Yi Baiti", 28.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+					label5->Location = System::Drawing::Point(29, 84);
+					label5->Name = L"label5";
+					label5->Size = System::Drawing::Size(86, 17);
+					label5->TabIndex = 2;
+					label5->Text = a;
+					// 
+					// label4
+					// 
+					label4->AutoSize = true;
+					label4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 						static_cast<System::Byte>(0)));
-					this->label1->Location = System::Drawing::Point(6, 136);
-					this->label1->Name = L"label1";
-					this->label1->Size = System::Drawing::Size(120, 48);
-					this->label1->TabIndex = 2;
-					this->label1->Text = L" " + reader->GetInt32(2);
-					this->label1->Click += gcnew System::EventHandler(this, &Main::label1_Click_1);
+					label4->Location = System::Drawing::Point(29, 35);
+					label4->Name = L"label4";
+					label4->Size = System::Drawing::Size(32, 32);
+					label4->TabIndex = 1;
+					label4->Text = L"" + reader->GetInt32(2);
+					label4->Click += gcnew System::EventHandler(this, &Main::label4_Click);
+
+					button3->Location = System::Drawing::Point(200, 20);
+					button3->Name = L"button3";
+					button3->Size = System::Drawing::Size(80, 25);
+					button3->TabIndex = 0;
+					button3->Text = L"Notify";
+					button3->UseVisualStyleBackColor = true;
+					button3->Click += gcnew System::EventHandler(this, &Main::button3_Click);
+
+					button4->Location = System::Drawing::Point(200, 50);
+					button4->Name = L"button3";
+					button4->Size = System::Drawing::Size(80, 25);
+					button4->TabIndex = 0;
+					button4->Text = L"Info";
+					button4->UseVisualStyleBackColor = true;
+					button4->Click += gcnew System::EventHandler(this, &Main::button3_Click);
+
+
+					//this->tabPage1->Controls->Add(label5);
+					//this->tabPage1->Controls->Add(label4);
+					this->tabPage1->Controls->Add(groupBox1);
+
 
 					i++;
+
+					Top = Top + 300;
 				}
 			
 		}
@@ -189,7 +238,6 @@ namespace Project {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->button9 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
@@ -198,18 +246,16 @@ namespace Project {
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->label15 = (gcnew System::Windows::Forms::Label());
-			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->splitter1 = (gcnew System::Windows::Forms::Splitter());
 			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			
 			this->label2 = (gcnew System::Windows::Forms::Label());
-			
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			this->tabPage2->SuspendLayout();
@@ -228,16 +274,14 @@ namespace Project {
 			// 
 			// tabPage1
 			// 
-			this->tabPage1->Controls->Add(this->groupBox2);
 			this->tabPage1->Location = System::Drawing::Point(4, 25);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
 			this->tabPage1->Size = System::Drawing::Size(1441, 538);
 			this->tabPage1->TabIndex = 0;
-			this->tabPage1->Text = L"Towers";
+			this->tabPage1->Text = L" Towers ";
 			this->tabPage1->UseVisualStyleBackColor = true;
 			this->tabPage1->Click += gcnew System::EventHandler(this, &Main::tabPage1_Click);
-			
 			// 
 			// tabPage2
 			// 
@@ -248,17 +292,17 @@ namespace Project {
 			this->tabPage2->Controls->Add(this->label17);
 			this->tabPage2->Controls->Add(this->label16);
 			this->tabPage2->Controls->Add(this->textBox1);
-			this->tabPage2->Controls->Add(this->label15);
-			this->tabPage2->Controls->Add(this->label14);
 			this->tabPage2->Controls->Add(this->label13);
 			this->tabPage2->Controls->Add(this->label12);
 			this->tabPage2->Controls->Add(this->label11);
 			this->tabPage2->Controls->Add(this->splitter1);
+			this->tabPage2->Controls->Add(this->label15);
+			this->tabPage2->Controls->Add(this->label14);
 			this->tabPage2->Controls->Add(this->tableLayoutPanel1);
 			this->tabPage2->Location = System::Drawing::Point(4, 25);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(1144, 538);
+			this->tabPage2->Size = System::Drawing::Size(1441, 538);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"History";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -324,26 +368,6 @@ namespace Project {
 			this->textBox1->Size = System::Drawing::Size(144, 22);
 			this->textBox1->TabIndex = 0;
 			// 
-			// label15
-			// 
-			this->label15->AutoSize = true;
-			this->label15->Location = System::Drawing::Point(402, 6);
-			this->label15->Name = L"label15";
-			this->label15->Size = System::Drawing::Size(117, 17);
-			this->label15->TabIndex = 6;
-			this->label15->Text = L"IN-COMING TIME";
-			this->label15->Click += gcnew System::EventHandler(this, &Main::label15_Click);
-			// 
-			// label14
-			// 
-			this->label14->AutoSize = true;
-			this->label14->Location = System::Drawing::Point(696, 6);
-			this->label14->Name = L"label14";
-			this->label14->Size = System::Drawing::Size(120, 17);
-			this->label14->TabIndex = 5;
-			this->label14->Text = L"OUTGOING TIME";
-			this->label14->Click += gcnew System::EventHandler(this, &Main::label14_Click);
-			// 
 			// label13
 			// 
 			this->label13->AutoSize = true;
@@ -406,6 +430,26 @@ namespace Project {
 			this->tableLayoutPanel1->TabIndex = 0;
 			this->tableLayoutPanel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Main::tableLayoutPanel1_Paint);
 			// 
+			// label15
+			// 
+			this->label15->AutoSize = true;
+			this->label15->Location = System::Drawing::Point(402, 6);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(117, 17);
+			this->label15->TabIndex = 6;
+			this->label15->Text = L"IN-COMING TIME";
+			this->label15->Click += gcnew System::EventHandler(this, &Main::label15_Click);
+			// 
+			// label14
+			// 
+			this->label14->AutoSize = true;
+			this->label14->Location = System::Drawing::Point(696, 6);
+			this->label14->Name = L"label14";
+			this->label14->Size = System::Drawing::Size(120, 17);
+			this->label14->TabIndex = 5;
+			this->label14->Text = L"OUTGOING TIME";
+			this->label14->Click += gcnew System::EventHandler(this, &Main::label14_Click);
+			// 
 			// button2
 			// 
 			this->button2->Location = System::Drawing::Point(199, 61);
@@ -426,10 +470,6 @@ namespace Project {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Main::button1_Click);
 			// 
-			// label3
-			// 
-			
-			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
@@ -440,7 +480,7 @@ namespace Project {
 			this->label2->Text = L"VEHICLES";
 			this->label2->Click += gcnew System::EventHandler(this, &Main::label2_Click);
 			// 
-			// label1
+			// button3
 			// 
 			
 			// 
@@ -508,6 +548,12 @@ private: System::Void label15_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void label14_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void groupBox3_Enter(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 }
 };
 }
