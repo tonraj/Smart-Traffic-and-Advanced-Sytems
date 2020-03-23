@@ -121,10 +121,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InfoForm.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TrafficIOT.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="InfoForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
