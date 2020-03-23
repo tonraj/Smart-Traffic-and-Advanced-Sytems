@@ -115,6 +115,7 @@ while True:
         getTowerAuthority = cursor.fetchall()
 
         for number in getTowerAuthority:
+            print("Sending message to Traffic Officer")
             sendMessage("Need Road " + receiverId + " to be cleared", number[0])
     
     UpdateVehicleSQL = "UPDATE dbo.Towers SET dbo.Towers.vehicleCount={}  WHERE dbo.Towers.transmitterId='{}';".format(v_count, TOWER_ID)
