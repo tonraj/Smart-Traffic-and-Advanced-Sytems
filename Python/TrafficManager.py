@@ -40,7 +40,7 @@ def sendMessage(msg, number):
 server = 'tonz.database.windows.net'
 database = 'traffic'
 username = 'tonz'
-password = '9893753436Raj'
+password = '****'
 driver= '{SQL Server}'
 
 cnxn = pyodbc.connect('DRIVER='+driver+';PORT=1433;SERVER='+server+';PORT=1443;DATABASE='+database+';UID='+username+';PWD='+ password)

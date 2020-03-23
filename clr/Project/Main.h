@@ -131,7 +131,7 @@ namespace Project {
 				SqlConnectionStringBuilder ^builder = gcnew SqlClient::SqlConnectionStringBuilder ();
 				builder->DataSource = "tonz.database.windows.net";
 				builder->UserID = "tonz";
-				builder->Password = "9893753436Raj";
+				builder->Password = "*****";
 				builder->InitialCatalog = "traffic";
 
 				SqlConnection^ connection = gcnew SqlClient::SqlConnection(builder->ConnectionString);
@@ -256,7 +256,7 @@ namespace Project {
 			SqlConnectionStringBuilder^ builder = gcnew SqlClient::SqlConnectionStringBuilder();
 			builder->DataSource = "tonz.database.windows.net";
 			builder->UserID = "tonz";
-			builder->Password = "9893753436Raj";
+			builder->Password = "****";
 			builder->InitialCatalog = "traffic";
 
 			SqlConnection^ connection = gcnew SqlClient::SqlConnection(builder->ConnectionString);
